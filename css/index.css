@@ -15,8 +15,19 @@ button {
     margin: 0 auto;
 }
 
-#map {
-    height: 750px;
+#view {
     width: 90%;
     margin: 10px auto;
+}
+
+#map {
+    height: 800px;
+    width: 60%;
+    float: left;
+}
+
+#check {
+    height: 800px;
+    width: 40%;
+    float: left;
 }
