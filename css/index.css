@@ -1,0 +1,22 @@
+textarea {
+    min-height: 100px;
+    margin-right: 10px;
+    vertical-align: top;
+}
+
+button {
+    height: 106px;
+    width: 106px;
+    border-radius: 23px;
+}
+
+#input-panel {
+    width: 90%;
+    margin: 0 auto;
+}
+
+#map {
+    height: 750px;
+    width: 90%;
+    margin: 10px auto;
+}
