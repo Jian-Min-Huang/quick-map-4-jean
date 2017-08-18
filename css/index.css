@@ -21,13 +21,13 @@ button {
 }
 
 #map {
-    height: 800px;
-    width: 60%;
+    height: 1000px;
+    width: 80%;
     float: left;
 }
 
 #check {
-    height: 800px;
-    width: 40%;
+    height: 1000px;
+    width: 20%;;
     float: left;
 }

@@ -5,16 +5,19 @@ $(document).ready(function () {
     initMap(0);
 });
 
+var markers = [];
+
 function initMap(type) {
-    var center = new google.maps.LatLng(24.983952, 121.414933);
+    var center = new google.maps.LatLng(24.979952, 121.402000);
     var mapProp = {
         center: center,
-        zoom: 13,
+        zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(document.getElementById("map"), mapProp);
 
-    var marker = (type === 0) ? createMarker(center, "./img/star.png", null) : createMarker(center, "./img/star.png", "google.maps.Animation.BOUNCE");
+    var office = new google.maps.LatLng(24.983952, 121.414933);
+    var marker = (type === 0) ? createMarker(office, "./img/star.png", null) : createMarker(office, "./img/star.png", "google.maps.Animation.BOUNCE");
     marker.setMap(map);
 
     var infowindow = new google.maps.InfoWindow({content: "<b>衛生所</b>"});
@@ -24,6 +27,7 @@ function initMap(type) {
 }
 
 function process() {
+    markers = [];
     $("#map").empty();
     $("#check").empty();
 
@@ -38,18 +42,19 @@ function process() {
     var map = initMap(1);
 
     var html = "";
-    data.forEach(function (element) {
-        if (element.location === null) return;
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].location === null) return;
 
-        var latlng = new google.maps.LatLng(element.location.lat, element.location.lng);
-        var marker = createMarker(latlng, element.level, null);
+        var latlng = new google.maps.LatLng(data[i].location.lat, data[i].location.lng);
+        var marker = createMarker(latlng, data[i].level, null);
+        markers.push(marker);
         marker.setMap(map);
 
-        var infowindow = new google.maps.InfoWindow({content: element.name});
+        var infowindow = new google.maps.InfoWindow({content: data[i].name});
         infowindow.open(map, marker);
 
-        html += "<input type=\"checkbox\" checked />" + element.name + "<br>";
-    });
+        html += "<span><input id=\"idx" + i + "\" type=\"checkbox\" onclick=\"showAndHideMarker(" + i + ")\" checked>" + data[i].name + "</span>";
+    }
 
     $("#check").append(html);
 }
@@ -104,5 +109,8 @@ function createMarker(position, iconPath, animationType) {
     return marker;
 }
 
+function showAndHideMarker(index) {
+    var isChecked = document.getElementById("idx" + index).checked;
 
-
+    markers[index].setVisible(isChecked);
+}
