@@ -15,19 +15,18 @@
 </head>
 
 <body>
-    <div id="input-panel">
-        <textarea id="data" cols="80"></textarea>
-        <button onclick="process()">處理</button>
-    </div>
+<div class="row">
+    <textarea id="data" cols="80"></textarea>
+    <button onclick="process()">處理</button>
+</div>
 
-    <div id="view">
-        <div id="map"></div>
-        <div id="check"></div>
-    </div>
+<div id="check" class="row"></div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAj4PdVqJ5dptTNojTHop1tUsird2yxZgg"></script>
-    <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./js/index.js"></script>
+<div id="map" class="row"></div>
+
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAj4PdVqJ5dptTNojTHop1tUsird2yxZgg"></script>
+<script src="./js/jquery-2.1.1.min.js"></script>
+<script src="./js/index.js"></script>
 </body>
 
 </html>

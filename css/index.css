@@ -27,24 +27,11 @@ button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-#input-panel {
-    width: 90%;
-    margin: 0 auto;
-}
-
-#view {
-    width: 90%;
-    margin: 10px auto;
+.row {
+    width: 1000px;
+    margin: 5px auto;
 }
 
 #map {
     height: 1000px;
-    width: 80%;
-    float: left;
-}
-
-#check {
-    height: 1000px;
-    width: 20%;;
-    float: left;
 }

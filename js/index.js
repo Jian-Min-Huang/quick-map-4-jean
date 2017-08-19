@@ -10,13 +10,13 @@ var markers = [];
 var infoWindows = [];
 
 function initMap(type) {
-    var center = new google.maps.LatLng(24.979952, 121.398000);
+    var center = new google.maps.LatLng(24.980952, 121.395933);
     var mapProp = {
         center: center,
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    var _map = new google.maps.Map(document.getElementById("map"), mapProp);
+    var map = new google.maps.Map(document.getElementById("map"), mapProp);
 
     var office = new google.maps.LatLng(24.983952, 121.414933);
     var marker = (type === 0) ? createMarker(office, "./img/star.png", null) : createMarker(office, "./img/star.png", "google.maps.Animation.BOUNCE");
@@ -25,7 +25,7 @@ function initMap(type) {
     var infowindow = new google.maps.InfoWindow({content: "<b>衛生所</b>"});
     if (type === 0) infowindow.open(map, marker);
 
-    return _map;
+    return map;
 }
 
 function process() {
