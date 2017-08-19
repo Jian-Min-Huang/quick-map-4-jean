@@ -1,2 +1,1 @@
-cd # quick-map-4-jean
-quick-map-4-jean
+https://jian-min-huang.github.io/quick-map-4-jean/index.html
