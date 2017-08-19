@@ -1,20 +1,22 @@
 $(document).ready(function () {
-    var example = "黃OO,238新北市樹林區中山路二段34號,1\n陳XX,238新北市樹林區中山路二段128號,2\n李YY,238新北市樹林區中山路二段150號,3";
+    var example = "姓名,地址,等級\n黃OO,238新北市樹林區中山路二段34號,1\n陳XX,238新北市樹林區中山路二段128號,2\n李YY,238新北市樹林區中山路二段150號,3";
     $("#data").attr("placeholder", example);
 
     initMap(0);
 });
 
+var map = null;
 var markers = [];
+var infoWindows = [];
 
 function initMap(type) {
-    var center = new google.maps.LatLng(24.979952, 121.402000);
+    var center = new google.maps.LatLng(24.979952, 121.398000);
     var mapProp = {
         center: center,
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    var map = new google.maps.Map(document.getElementById("map"), mapProp);
+    var _map = new google.maps.Map(document.getElementById("map"), mapProp);
 
     var office = new google.maps.LatLng(24.983952, 121.414933);
     var marker = (type === 0) ? createMarker(office, "./img/star.png", null) : createMarker(office, "./img/star.png", "google.maps.Animation.BOUNCE");
@@ -23,15 +25,22 @@ function initMap(type) {
     var infowindow = new google.maps.InfoWindow({content: "<b>衛生所</b>"});
     if (type === 0) infowindow.open(map, marker);
 
-    return map;
+    return _map;
 }
 
 function process() {
     markers = [];
+    infoWindows = [];
     $("#map").empty();
     $("#check").empty();
 
-    var lines = $("#data").val().split("\n");
+    var lines = null
+    if ($("#data").val() === "") {
+        lines = $("#data").attr("placeholder").split("\n");
+        delete lines[0];
+    } else {
+        lines = $("#data").val().split("\n");
+    }
 
     var data = [];
     lines.forEach(function (element) {
@@ -39,7 +48,7 @@ function process() {
         data.push({name: name_address_level[0], location: address2latlng(name_address_level[1]), level: name_address_level[2]});
     });
 
-    var map = initMap(1);
+    map = initMap(1);
 
     var html = "";
     for (var i = 0; i < data.length; i++) {
@@ -47,11 +56,12 @@ function process() {
 
         var latlng = new google.maps.LatLng(data[i].location.lat, data[i].location.lng);
         var marker = createMarker(latlng, data[i].level, null);
-        markers.push(marker);
         marker.setMap(map);
+        markers.push(marker);
 
-        var infowindow = new google.maps.InfoWindow({content: data[i].name});
-        infowindow.open(map, marker);
+        var infoWindow = new google.maps.InfoWindow({content: data[i].name});
+        infoWindow.open(map, marker);
+        infoWindows.push(infoWindow);
 
         html += "<span><input id=\"idx" + i + "\" type=\"checkbox\" onclick=\"showAndHideMarker(" + i + ")\" checked>" + data[i].name + "</span>";
     }
@@ -113,4 +123,7 @@ function showAndHideMarker(index) {
     var isChecked = document.getElementById("idx" + index).checked;
 
     markers[index].setVisible(isChecked);
+
+    if (isChecked) infoWindows[index].open(map, markers[index]);
+    else infoWindows[index].close();
 }
