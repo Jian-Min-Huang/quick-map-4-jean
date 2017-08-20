@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    if(navigator.userAgent.match(/iPhone/i)) {
+    if(navigator.userAgent.match(/iPhone/i) && !window.location.pathname.match(/index_m/i)) {
          window.location = "./index_m.html";
     }
 
