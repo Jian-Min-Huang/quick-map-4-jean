@@ -1,7 +1,5 @@
 $(document).ready(function () {
-    document.write(navigator.userAgent);
-
-    if(navigator.userAgent.match(/iPhone/i) && !window.location.pathname.match(/index_m/i)) {
+    if(navigator.userAgent.match(/Mac/i) && !window.location.pathname.match(/index_m/i)) {
          window.location = "./index_m.html";
     }
 
