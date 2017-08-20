@@ -3,8 +3,8 @@ $(document).ready(function () {
          window.location = "./index.html";
     }
 
-    var example = "姓名,地址,等級\n黃OO,238新北市樹林區中山路二段34號,1\n陳XX,238新北市樹林區中山路二段128號,2\n李YY,238新北市樹林區中山路二段150號,3";
-    $("#data").attr("placeholder", example);
+    // var example = "姓名,地址,等級\n黃OO,238新北市樹林區中山路二段34號,1\n陳XX,238新北市樹林區中山路二段128號,2\n李YY,238新北市樹林區中山路二段150號,3";
+    // $("#data").attr("placeholder", example);
 
     initMap(0);
 });
