@@ -37,7 +37,7 @@ function process() {
     $("#map").empty();
     $("#check").empty();
 
-    var lines = null
+    var lines = null;
     if ($("#data").val() === "") {
         lines = $("#data").attr("placeholder").split("\n");
         delete lines[0];
@@ -48,7 +48,11 @@ function process() {
     var data = [];
     lines.forEach(function (element) {
         var name_address_level = element.split(",");
-        data.push({name: name_address_level[0], location: address2latlng(name_address_level[1]), level: name_address_level[2]});
+        data.push({
+            name: name_address_level[0],
+            location: address2latlng(name_address_level[2]),
+            level: name_address_level[1]
+        });
     });
 
     map = initMap(1);
@@ -101,17 +105,17 @@ function createMarker(position, iconPath, animationType) {
 
     if (iconPath !== null) {
         switch (iconPath) {
-            case "1":
+            case "一級":
                 marker.setIcon("./img/1.png");
                 break;
-            case "2":
+            case "二級":
                 marker.setIcon("./img/2.png");
                 break;
-            case "3":
+            case "三級":
                 marker.setIcon("./img/3.png");
                 break;
             default:
-                marker.setIcon(iconPath);
+                marker.setIcon("./img/3.png");
                 break;
         }
     }
