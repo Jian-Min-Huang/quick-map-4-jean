@@ -35,9 +35,9 @@ function initMap(type) {
 function process() {
     markers = [];
     infoWindows = [];
-    $("#map").empty();
     $("#check").empty();
     $("#error").empty();
+    $("#map").empty();
 
     /* read data from text area */
     var lines = null;
@@ -50,6 +50,7 @@ function process() {
 
     var data = [];
     var errAddr = [];
+    var processIdx = 0;
     lines.forEach(function (element) {
         var name_address_level = element.split(",");
         var tmpLocation = address2latlng(name_address_level[2]);
@@ -63,6 +64,9 @@ function process() {
             location: tmpLocation,
             level: name_address_level[1]
         });
+
+        $("#progress").empty();
+        $("#progress").append(`${processIdx++} / ${lines.length}`);
     });
 
     map = initMap(1);
@@ -85,11 +89,12 @@ function process() {
 
     var errHtml = "";
     for (var i = 0; i < errAddr.length; i++) {
-        if (i === 0) errHtml.append("==地址解析錯誤 請修正原始檔==");
+        if (i === 0) errHtml += "==地址解析錯誤 請修正原始檔==<br>";
 
         errHtml += `${errAddr[i]}<br>`;
     }
 
+    $("#progress").empty();
     $("#check").append(html);
     $("#error").append(errHtml);
 }
