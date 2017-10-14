@@ -91,7 +91,7 @@ function process() {
         errHtml += `${errAddr[i]}<br>`;
     }
 
-    $("#progress").empty();
+    $("#progress").html("");
     $("#check").append(html);
     $("#error").append(errHtml);
 }
@@ -111,8 +111,8 @@ function address2latlng(processIdx, dataLength, address) {
                 console.error(`${address} parsing error : ${res}`);
             }
 
-            $("#progress").empty();
-            $("#progress").append(`${processIdx} / ${dataLength}`);
+            $("#progress").html("");
+            $("#progress").html(`${processIdx} / ${dataLength}`);
         },
         error: function (xhr, status, error) {
             console.error(`${JSON.stringify(xhr)},\n${status},\n${error}`);
