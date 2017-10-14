@@ -53,7 +53,7 @@ function process() {
     var processIdx = 0;
     lines.forEach(function (element) {
         var name_address_level = element.split(",");
-        var tmpLocation = address2latlng(name_address_level[2]);
+        var tmpLocation = address2latlng(processIdx++, lines.length, name_address_level[2]);
 
         if (tmpLocation.lat === 24.983952 && tmpLocation.lng === 121.414933) {
             errAddr.push(element);
@@ -64,9 +64,6 @@ function process() {
             location: tmpLocation,
             level: name_address_level[1]
         });
-
-        $("#progress").empty();
-        $("#progress").append(`${processIdx++} / ${lines.length}`);
     });
 
     map = initMap(1);
@@ -99,7 +96,7 @@ function process() {
     $("#error").append(errHtml);
 }
 
-function address2latlng(address) {
+function address2latlng(processIdx, dataLength, address) {
     var latlng = null;
 
     $.ajax({
@@ -113,6 +110,9 @@ function address2latlng(address) {
                 latlng = {lat: 24.983952, lng: 121.414933};
                 console.error(`${address} parsing error : ${res}`);
             }
+
+            $("#progress").empty();
+            $("#progress").append(`${processIdx} / ${dataLength}`);
         },
         error: function (xhr, status, error) {
             console.error(`${JSON.stringify(xhr)},\n${status},\n${error}`);
