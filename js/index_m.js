@@ -83,6 +83,7 @@ function process() {
         html += "<span><input id=\"idx" + i + "\" type=\"checkbox\" onclick=\"showAndHideMarker(" + i + ")\" checked>" + data[i].name + "</span>";
     }
 
+    var errHtml = "";
     for (var i = 0; i < errAddr.length; i++) {
         if (i === 0) errHtml.append("==地址解析錯誤 請修正原始檔==");
 
