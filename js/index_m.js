@@ -7,6 +7,8 @@ $(document).ready(function () {
 });
 
 var map = null;
+var names = [];
+var errorNames = [];
 var markers = [];
 var infoWindows = [];
 
@@ -33,11 +35,15 @@ function initMap(type) {
 }
 
 function process() {
+    $("#progress").empty();
+    $("#map").empty();
+
+    map = initMap(1);
+
+    names = [];
+    errorNames = [];
     markers = [];
     infoWindows = [];
-    $("#check").empty();
-    $("#error").empty();
-    $("#map").empty();
 
     /* read data from text area */
     var lines = null;
@@ -48,78 +54,62 @@ function process() {
         lines = $("#data").val().split("\n");
     }
 
-    var data = [];
-    var errAddr = [];
     var processIdx = 0;
     lines.forEach(function (element) {
-        var name_address_level = element.split(",");
-        var tmpLocation = address2latlng(processIdx++, lines.length, name_address_level[2]);
+        var name_level_address_line = element.split(",");
+        var name = name_level_address_line[0];
+        var level = name_level_address_line[1];
+        var address = name_level_address_line[2];
 
-        if (tmpLocation.lat === 24.983952 && tmpLocation.lng === 121.414933) {
-            errAddr.push(element);
-        }
+        $.ajax({
+            url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyAj4PdVqJ5dptTNojTHop1tUsird2yxZgg`,
+            method: "GET",
+            success: function (res) {
+                var marker = null;
+                if (res.results.length > 0) {
+                    marker = createMarker(new google.maps.LatLng(res.results[0].geometry.location.lat, res.results[0].geometry.location.lng), level, null);
 
-        data.push({
-            name: name_address_level[0],
-            location: tmpLocation,
-            level: name_address_level[1]
+                    var infoWindow = new google.maps.InfoWindow({content: name});
+                    infoWindow.open(map, marker);
+
+                    marker.setMap(map);
+
+                    names.push(name);
+                    markers.push(marker);
+                    infoWindows.push(infoWindow);
+                } else {
+                    console.error(`${address} parsing error : ${res}`);
+
+                    errorNames.push(name_level_address_line);
+                }
+
+                $("#progress").html(`處理進度 : ${++processIdx} / ${lines.length}`);
+
+                renderPage(names, errorNames);
+            },
+            error: function (xhr, status, error) {
+                console.error(`${JSON.stringify(xhr)},\n${status},\n${error}`);
+            }
         });
     });
-
-    map = initMap(1);
-
-    var html = "";
-    for (var i = 0; i < data.length; i++) {
-        if (data[i].location === null) return;
-
-        var latlng = new google.maps.LatLng(data[i].location.lat, data[i].location.lng);
-        var marker = createMarker(latlng, data[i].level, null);
-        marker.setMap(map);
-        markers.push(marker);
-
-        var infoWindow = new google.maps.InfoWindow({content: data[i].name});
-        infoWindow.open(map, marker);
-        infoWindows.push(infoWindow);
-
-        html += "<span><input id=\"idx" + i + "\" type=\"checkbox\" onclick=\"showAndHideMarker(" + i + ")\" checked>" + data[i].name + "</span>";
-    }
-
-    var errHtml = "";
-    for (var i = 0; i < errAddr.length; i++) {
-        if (i === 0) errHtml += "==地址解析錯誤 請修正原始檔==<br>";
-
-        errHtml += `${errAddr[i]}<br>`;
-    }
-
-    $("#progress").html("");
-    $("#check").append(html);
-    $("#error").append(errHtml);
 }
 
-function address2latlng(processIdx, dataLength, address) {
-    var latlng = null;
+function renderPage(nameArr, errorNameArr) {
+    $("#checkBoxes").empty();
+    $("#errorData").empty();
 
-    $.ajax({
-        url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyAj4PdVqJ5dptTNojTHop1tUsird2yxZgg`,
-        method: "GET",
-        async: false,
-        success: function (res) {
-            if (res.results.length > 0) {
-                latlng = {lat: res.results[0].geometry.location.lat, lng: res.results[0].geometry.location.lng};
-            } else {
-                latlng = {lat: 24.983952, lng: 121.414933};
-                console.error(`${address} parsing error : ${res}`);
-            }
+    var html = "", errHtml = "";
+    for (var i = 0; i < nameArr.length; i++) {
+        html += `<span><input id=\"idx${i}\" type=\"checkbox\" onclick=\"showAndHideMarker(${i})\" checked>${nameArr[i]}</span>`;
+    }
+    for (var i = 0; i < errorNameArr.length; i++) {
+        if (i === 0) errHtml += "==地址解析錯誤 請修正原始檔==<br>";
 
-            $("#progress").html("");
-            $("#progress").html(`${processIdx} / ${dataLength}`);
-        },
-        error: function (xhr, status, error) {
-            console.error(`${JSON.stringify(xhr)},\n${status},\n${error}`);
-        }
-    });
+        errHtml += `${errorNameArr[i]}<br>`;
+    }
 
-    return latlng;
+    $("#checkBoxes").html(html);
+    $("#errorData").html(errHtml);
 }
 
 function createMarker(position, iconPath, animationType) {
