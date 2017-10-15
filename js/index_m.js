@@ -4,6 +4,8 @@ $(document).ready(function () {
     }
 
     initMap(0);
+
+    $("#userAgent").html(`${navigator.userAgent}`);
 });
 
 var map = null;
