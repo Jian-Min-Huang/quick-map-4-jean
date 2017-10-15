@@ -48,8 +48,13 @@ function process() {
     /* read data from text area */
     var lines = null;
     if ($("#data").val() === "") {
-        lines = $("#data").attr("placeholder").split("\n");
-        delete lines[0];
+        var examples = $("#data").attr("placeholder").split("\n");
+        var exampleArr = [];
+        for (var i = 1; i < examples.length; i++) {
+            exampleArr.push(examples[i]);
+        }
+
+        lines = exampleArr;
     } else {
         lines = $("#data").val().split("\n");
     }
@@ -67,7 +72,7 @@ function process() {
             cache: false,
             success: function (res) {
                 var marker = null;
-                if (res.results.status === "OK") {
+                if (res.status === "OK") {
                     marker = createMarker(new google.maps.LatLng(res.results[0].geometry.location.lat, res.results[0].geometry.location.lng), level, null);
 
                     var infoWindow = new google.maps.InfoWindow({content: name});
