@@ -67,7 +67,7 @@ function process() {
             cache: false,
             success: function (res) {
                 var marker = null;
-                if (res.results.length > 0) {
+                if (res.results.status === "OK") {
                     marker = createMarker(new google.maps.LatLng(res.results[0].geometry.location.lat, res.results[0].geometry.location.lng), level, null);
 
                     var infoWindow = new google.maps.InfoWindow({content: name});
