@@ -64,6 +64,7 @@ function process() {
         $.ajax({
             url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyAj4PdVqJ5dptTNojTHop1tUsird2yxZgg`,
             method: "GET",
+            cache: false,
             success: function (res) {
                 var marker = null;
                 if (res.results.length > 0) {
