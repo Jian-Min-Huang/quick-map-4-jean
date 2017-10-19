@@ -21,7 +21,7 @@ var infoWindows = [];
 function initMap(type) {
     var officeLocation = new google.maps.LatLng(24.983952, 121.414933);
     var mapProp = {
-        center: officeLocation,
+        center: new google.maps.LatLng(24.983952, 121.395933),
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
