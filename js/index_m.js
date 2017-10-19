@@ -1,11 +1,11 @@
 $(document).ready(function () {
-    if(!navigator.userAgent.match(/Mac/i) && !window.location.pathname.match(/index/i)) {
-         window.location = "./index.html";
+    if (navigator.userAgent.match(/Mobile/i) && !window.location.pathname.match(/index_m/i)) {
+        window.location = "./index_m.html";
+    } else if (!window.location.pathname.match(/index/i)) {
+        window.location = "./index.html";
     }
 
     initMap(0);
-
-    $("#userAgent").html(`${navigator.userAgent}`);
 });
 
 var map = null;
@@ -52,8 +52,8 @@ function process() {
     if ($("#data").val() === "") {
         var examples = $("#data").attr("placeholder").split("\n");
         var exampleArr = [];
-        for (var i = 1; i < examples.length; i++) {
-            exampleArr.push(examples[i]);
+        for (var exampleIdx = 1; exampleIdx < examples.length; exampleIdx++) {
+            exampleArr.push(examples[exampleIdx]);
         }
 
         lines = exampleArr;
@@ -61,37 +61,43 @@ function process() {
         lines = $("#data").val().split("\n");
     }
 
-    var processIdx = 0;
-    lines.forEach(function (element) {
-        var name_level_address_line = element.split(",");
-        var name = name_level_address_line[0];
-        var level = name_level_address_line[1];
-        var address = name_level_address_line[2];
+    console.log(`筆數 : ${lines.length}`);
+
+    for (var lineIdx = 0; lineIdx < lines.length; lineIdx++) {
+        setTimeout(processEach(lines[lineIdx], lines.length)(map, names, errorNames, markers, infoWindows), 100 + (lineIdx * 500));
+    }
+}
+
+function processEach(element) {
+    return function (map, names, errorNames, markers, infoWindows) {
+        const name_level_address_line = element.split(",");
+        const name = name_level_address_line[0];
+        const level = name_level_address_line[1];
+        const address = name_level_address_line[2];
 
         $.ajax({
             url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyAj4PdVqJ5dptTNojTHop1tUsird2yxZgg`,
             method: "GET",
             cache: false,
             success: function (res) {
-                var marker = null;
                 if (res.status === "OK") {
-                    marker = createMarker(new google.maps.LatLng(res.results[0].geometry.location.lat, res.results[0].geometry.location.lng), level, null);
+                    var marker = createMarker(new google.maps.LatLng(res.results[0].geometry.location.lat, res.results[0].geometry.location.lng), level, null);
+
+                    marker.setMap(map);
 
                     var infoWindow = new google.maps.InfoWindow({content: name});
                     infoWindow.open(map, marker);
-
-                    marker.setMap(map);
 
                     names.push(name);
                     markers.push(marker);
                     infoWindows.push(infoWindow);
                 } else {
-                    console.error(`${address} parsing error : ${res}`);
+                    console.error(`${address} parsing error : ${JSON.stringify(res)}`);
 
                     errorNames.push(name_level_address_line);
                 }
 
-                $("#progress").html(`處理進度 : ${++processIdx} / ${lines.length}`);
+                $("#progress").html(`已處理 ${names.length} 筆`);
 
                 renderPage(names, errorNames);
             },
@@ -99,7 +105,7 @@ function process() {
                 console.error(`${JSON.stringify(xhr)},\n${status},\n${error}`);
             }
         });
-    });
+    };
 }
 
 function renderPage(nameArr, errorNameArr) {
@@ -107,13 +113,13 @@ function renderPage(nameArr, errorNameArr) {
     $("#errorData").empty();
 
     var html = "", errHtml = "";
-    for (var i = 0; i < nameArr.length; i++) {
-        html += `<span><input id=\"idx${i}\" type=\"checkbox\" onclick=\"showAndHideMarker(${i})\" checked>${nameArr[i]}</span>`;
+    for (var nameIdx = 0; nameIdx < nameArr.length; nameIdx++) {
+        html += `<span><input id=\"idx${nameIdx}\" type=\"checkbox\" onclick=\"showAndHideMarker(${nameIdx})\" checked>${nameArr[nameIdx]}</span>`;
     }
-    for (var i = 0; i < errorNameArr.length; i++) {
-        if (i === 0) errHtml += "==地址解析錯誤 請修正原始檔==<br>";
+    for (var errorNameIdx = 0; errorNameIdx < errorNameArr.length; errorNameIdx++) {
+        if (errorNameIdx === 0) errHtml += "==地址解析錯誤 請修正原始檔==<br>";
 
-        errHtml += `${errorNameArr[i]}<br>`;
+        errHtml += `${errorNameArr[errorNameIdx]}<br>`;
     }
 
     $("#checkBoxes").html(html);
@@ -143,9 +149,7 @@ function createMarker(position, iconPath, animationType) {
                 break;
         }
     }
-    if (animationType) {
-        marker.setAnimation(eval(animationType));
-    }
+    if (animationType) marker.setAnimation(eval(animationType));
 
     return marker;
 }
