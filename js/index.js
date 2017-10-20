@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    if (navigator.userAgent.match(/Mobile/i) && !window.location.pathname.match(/index_m/i)) {
+    if (navigator.userAgent.match(/Mobile/i) && !window.location.pathname.match(/index_m\.html/i)) {
         window.location = "./index_m.html";
-    } else if (!window.location.pathname.match(/index/i)) {
+    } else if (!window.location.pathname.match(/index\.html/i)) {
         window.location = "./index.html";
     }
 
