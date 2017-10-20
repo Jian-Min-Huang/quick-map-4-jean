@@ -1,11 +1,19 @@
 $(document).ready(function () {
-    if (navigator.userAgent.match(/Mobile/i) && !window.location.pathname.match(/index_m\.html/i)) {
-        window.location = "./index_m.html";
-    } else if (!window.location.pathname.match(/index\.html/i)) {
-        window.location = "./index.html";
+    if (navigator.userAgent.match(/Mobile/i)) {
+        if (!window.location.pathname.match(/index_m\.html/i)) {
+            window.location = "./index_m.html";
+        }
+    } else {
+        if (!window.location.pathname.match(/index\.html/i)) {
+            window.location = "./index.html";
+        }
     }
 
-    initMap(0);
+    if (window.location.pathname.match(/index\.html/i)) {
+        initMap(0, "desktop");
+    } else {
+        initMap(0, "mobile");
+    }
 });
 
 var map = null;
@@ -15,32 +23,36 @@ var markers = [];
 var infoWindows = [];
 
 /**
- * type 0 when page init
- * type 1 when process
+ * status 0 -> page init
+ * status 1 -> when process call
+ *
+ * type desktop -> index.html
+ * type mobile -> index_m.html
  */
-function initMap(type) {
+function initMap(status, type) {
     var officeLocation = new google.maps.LatLng(24.983952, 121.414933);
+    var center = (type === "desktop") ? new google.maps.LatLng(24.983952, 121.395933) : officeLocation;
     var mapProp = {
-        center: new google.maps.LatLng(24.983952, 121.395933),
+        center: center,
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(document.getElementById("map"), mapProp);
 
-    var marker = (type === 0) ? createMarker(officeLocation, "./img/star.png", null) : createMarker(officeLocation, "./img/star.png", "google.maps.Animation.BOUNCE");
+    var marker = (status === 0) ? createMarker(officeLocation, "./img/star.png", null) : createMarker(officeLocation, "./img/star.png", "google.maps.Animation.BOUNCE");
     marker.setMap(map);
 
     var infowindow = new google.maps.InfoWindow({content: "<b>衛生所</b>"});
-    if (type === 0) infowindow.open(map, marker);
+    if (status === 0) infowindow.open(map, marker);
 
     return map;
 }
 
-function process() {
+function process(type) {
     $("#progress").empty();
     $("#map").empty();
 
-    map = initMap(1);
+    map = initMap(1, type);
 
     names = [];
     errorNames = [];
@@ -63,9 +75,11 @@ function process() {
 
     console.log(`筆數 : ${lines.length}`);
 
-    for (var lineIdx = 0; lineIdx < lines.length; lineIdx++) {
-        setTimeout(processEach(lines[lineIdx], lines.length)(map, names, errorNames, markers, infoWindows), 100 + (lineIdx * 500));
-    }
+    lines.forEach(function (line, index) {
+        setTimeout(function () {
+            processEach(line)(map, names, errorNames, markers, infoWindows);
+        }, index * 500);
+    });
 }
 
 function processEach(element) {
