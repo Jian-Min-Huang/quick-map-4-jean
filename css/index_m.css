@@ -32,6 +32,12 @@ button:hover {
     margin: 5px auto;
 }
 
+.icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
 #map {
     height: 1000px;
 }
