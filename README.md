@@ -1,5 +1,5 @@
 # quick map 4 jean
-> http://jean.jainminhuang.cc
+> http://jean.jianminhuang.cc
 
 # input format (.csv), you can press enter button directly to show example
 ```
