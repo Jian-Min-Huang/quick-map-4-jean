@@ -14,6 +14,8 @@ $(document).ready(function () {
     } else {
         initMap(0, "mobile");
     }
+
+    $(document).tooltip();
 });
 
 var map = null;
