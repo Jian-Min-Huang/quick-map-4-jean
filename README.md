@@ -25,5 +25,5 @@ Copyright (c) 2017 Jian-Min Huang
 
 [:arrow_up: back to top][top-page]
   
-[license-page]: <https://github.com/Jian-Min-Huang/quick-map-4-jean/LICENSE>
+[license-page]: <https://github.com/Jian-Min-Huang/quick-map-4-jean/blob/master/LICENSE>
 [top-page]: <https://github.com/Jian-Min-Huang/quick-map-4-jean#quick-map-4-jean>

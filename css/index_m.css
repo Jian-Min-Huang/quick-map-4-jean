@@ -11,7 +11,6 @@ textarea {
     left: 50%;
     color: #999999;
     margin-left: calc(-150px + 4px);
-    margin-top: 2px;
 }
 
 button {
