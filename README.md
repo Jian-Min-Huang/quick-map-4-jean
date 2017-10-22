@@ -13,12 +13,12 @@ name3,level3,address3
 ![desktop](./img/desktop.png)
 
 # mobile screen
-![mobile](./img/mobile.png)
+![mobile](./img/mobile.jpg)
 
-# Authors
+# author
 Jian-Min Huang
 
-# License
+# license
 [MIT License][license-page]
 
 Copyright (c) 2017 Jian-Min Huang
