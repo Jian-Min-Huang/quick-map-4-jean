@@ -16,6 +16,10 @@ $(document).ready(function () {
     }
 
     $(document).tooltip();
+
+    $("#placeholder").click(function () {
+        $("#placeholder").css("display", "none");
+    });
 });
 
 var map = null;
@@ -64,7 +68,7 @@ function process(type) {
     /* read data from text area */
     var lines = null;
     if ($("#data").val() === "") {
-        var examples = $("#data").attr("placeholder").split("\n");
+        var examples = $("#placeholder").html().split("<br>");
         var exampleArr = [];
         for (var exampleIdx = 1; exampleIdx < examples.length; exampleIdx++) {
             exampleArr.push(examples[exampleIdx]);
