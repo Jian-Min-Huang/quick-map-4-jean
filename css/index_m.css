@@ -1,14 +1,22 @@
 :focus { outline: none; }
 
 textarea {
-    min-height: 40px;
-    margin-right: 10px;
+    min-height: 50px;
     vertical-align: top;
 }
 
+#placeholder {
+    position: absolute;
+    font-size: 8px;
+    left: 50%;
+    color: #999999;
+    margin-left: calc(-150px + 4px);
+    margin-top: 2px;
+}
+
 button {
-    height: 46px;
-    width: 46px;
+    height: 56px;
+    width: 56px;
     background-color: cornflowerblue;
     border: none;
     border-radius: 10px;

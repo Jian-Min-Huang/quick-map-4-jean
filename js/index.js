@@ -37,7 +37,7 @@ var infoWindows = [];
  */
 function initMap(status, type) {
     var officeLocation = new google.maps.LatLng(24.983952, 121.414933);
-    var center = (type === "desktop") ? new google.maps.LatLng(24.983952, 121.395933) : officeLocation;
+    var center = (type === "desktop") ? new google.maps.LatLng(24.983952, 121.388933) : officeLocation;
     var mapProp = {
         center: center,
         zoom: 14,
