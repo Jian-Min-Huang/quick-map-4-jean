@@ -1,0 +1,22 @@
+{
+  "name": "quick-map-4-jean",
+  "version": "1.0.0",
+  "description": "Quick Map for Jean",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jian-Min-Huang/quick-map-4-jean.git"
+  },
+  "author": "Jian-Min Huang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jian-Min-Huang/quick-map-4-jean/issues"
+  },
+  "homepage": "https://github.com/Jian-Min-Huang/quick-map-4-jean#readme",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "jquery-ui": "^1.12.1"
+  }
+}
