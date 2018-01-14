@@ -1,4 +1,4 @@
-# 🗺 quick-map-4-jean
+# 🗺 quick-map-4-jean  [![Build Status](https://travis-ci.org/Jian-Min-Huang/quick-map-4-jean.svg?branch=master)](https://travis-ci.org/Jian-Min-Huang/quick-map-4-jean)
 Quick Map for Jean's Business
 
 # Input Format (.csv), you can press enter button directly
