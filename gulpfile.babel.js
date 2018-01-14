@@ -44,11 +44,11 @@ gulp.task("html", ["versioning"], function () {
 gulp.task("js", function () {
     gulp.src(JsFileDependencies)
         .pipe(concat("bundle.js"))
-        // .pipe(uglify())
-        // .pipe(rename(function (path) {
-        //     path.basename += ".min";
-        //     path.extname = ".js";
-        // }))
+        .pipe(uglify())
+        .pipe(rename(function (path) {
+            path.basename += ".min";
+            path.extname = ".js";
+        }))
         .pipe(gulp.dest(DEST));
 });
 
