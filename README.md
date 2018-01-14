@@ -10,10 +10,10 @@ name3,level3,address3
 ```
 
 # Desktop Screen
-![desktop](./img/desktop.png)
+![desktop](./build/img/desktop.png)
 
 # Mobile Screen
-![mobile](./img/mobile.jpg)
+![mobile](./build/img/mobile.jpg)
 
 # Result
 please visit [http://jean.jianminhuang.cc][result-page]
