@@ -1,3 +1,5 @@
+"use strict";
+
 $(document).ready(function () {
     if (navigator.userAgent.match(/Mobile/i)) {
         if (!window.location.pathname.match(/index_m\.html/i)) {
@@ -37,7 +39,7 @@ var infoWindows = [];
  */
 function initMap(status, type) {
     var officeLocation = new google.maps.LatLng(24.983952, 121.414933);
-    var center = (type === "desktop") ? new google.maps.LatLng(24.983952, 121.388933) : officeLocation;
+    var center = type === "desktop" ? new google.maps.LatLng(24.983952, 121.388933) : officeLocation;
     var mapProp = {
         center: center,
         zoom: 14,
@@ -45,10 +47,10 @@ function initMap(status, type) {
     };
     var map = new google.maps.Map(document.getElementById("map"), mapProp);
 
-    var marker = (status === 0) ? createMarker(officeLocation, "./img/star.png", null) : createMarker(officeLocation, "./img/star.png", "google.maps.Animation.BOUNCE");
+    var marker = status === 0 ? createMarker(officeLocation, "./img/star.png", null) : createMarker(officeLocation, "./img/star.png", "google.maps.Animation.BOUNCE");
     marker.setMap(map);
 
-    var infowindow = new google.maps.InfoWindow({content: "<b>衛生所</b>"});
+    var infowindow = new google.maps.InfoWindow({ content: "<b>衛生所</b>" });
     if (status === 0) infowindow.open(map, marker);
 
     return map;
@@ -79,7 +81,7 @@ function process(type) {
         lines = $("#data").val().split("\n");
     }
 
-    console.log(`筆數 : ${lines.length}`);
+    console.log("\u7B46\u6578 : " + lines.length);
 
     lines.forEach(function (line, index) {
         setTimeout(function () {
@@ -90,39 +92,39 @@ function process(type) {
 
 function processEach(element) {
     return function (map, names, errorNames, markers, infoWindows) {
-        const name_level_address_line = element.split(",");
-        const name = name_level_address_line[0];
-        const level = name_level_address_line[1];
-        const address = name_level_address_line[2];
+        var name_level_address_line = element.split(",");
+        var name = name_level_address_line[0];
+        var level = name_level_address_line[1];
+        var address = name_level_address_line[2];
 
         $.ajax({
-            url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyAj4PdVqJ5dptTNojTHop1tUsird2yxZgg`,
+            url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyAj4PdVqJ5dptTNojTHop1tUsird2yxZgg",
             method: "GET",
             cache: false,
-            success: function (res) {
+            success: function success(res) {
                 if (res.status === "OK") {
                     var marker = createMarker(new google.maps.LatLng(res.results[0].geometry.location.lat, res.results[0].geometry.location.lng), level, null);
 
                     marker.setMap(map);
 
-                    var infoWindow = new google.maps.InfoWindow({content: name});
+                    var infoWindow = new google.maps.InfoWindow({ content: name });
                     infoWindow.open(map, marker);
 
                     names.push(name);
                     markers.push(marker);
                     infoWindows.push(infoWindow);
                 } else {
-                    console.error(`${address} parsing error : ${JSON.stringify(res)}`);
+                    console.error(address + " parsing error : " + JSON.stringify(res));
 
                     errorNames.push(name_level_address_line);
                 }
 
-                $("#progress").html(`已處理 ${names.length} 筆`);
+                $("#progress").html("\u5DF2\u8655\u7406 " + names.length + " \u7B46");
 
                 renderPage(names, errorNames);
             },
-            error: function (xhr, status, error) {
-                console.error(`${JSON.stringify(xhr)},\n${status},\n${error}`);
+            error: function error(xhr, status, _error) {
+                console.error(JSON.stringify(xhr) + ",\n" + status + ",\n" + _error);
             }
         });
     };
@@ -132,14 +134,15 @@ function renderPage(nameArr, errorNameArr) {
     $("#checkBoxes").empty();
     $("#errorData").empty();
 
-    var html = "", errHtml = "";
+    var html = "",
+        errHtml = "";
     for (var nameIdx = 0; nameIdx < nameArr.length; nameIdx++) {
-        html += `<span><input id=\"idx${nameIdx}\" type=\"checkbox\" onclick=\"showAndHideMarker(${nameIdx})\" checked>${nameArr[nameIdx]}</span>`;
+        html += "<span><input id=\"idx" + nameIdx + "\" type=\"checkbox\" onclick=\"showAndHideMarker(" + nameIdx + ")\" checked>" + nameArr[nameIdx] + "</span>";
     }
     for (var errorNameIdx = 0; errorNameIdx < errorNameArr.length; errorNameIdx++) {
         if (errorNameIdx === 0) errHtml += "==地址解析錯誤 請修正原始檔==<br>";
 
-        errHtml += `${errorNameArr[errorNameIdx]}<br>`;
+        errHtml += errorNameArr[errorNameIdx] + "<br>";
     }
 
     $("#checkBoxes").html(html);
@@ -179,6 +182,5 @@ function showAndHideMarker(index) {
 
     markers[index].setVisible(isChecked);
 
-    if (isChecked) infoWindows[index].open(map, markers[index]);
-    else infoWindows[index].close();
+    if (isChecked) infoWindows[index].open(map, markers[index]);else infoWindows[index].close();
 }

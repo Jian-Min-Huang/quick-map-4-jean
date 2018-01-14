@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Jian-Min Huang Note">
+    <meta name="author" content="Jian-Min Huang">
+
+    <title>Jian-Min Huang Note</title>
+
+    <link rel="icon" href="./img/favicon.ico">
+    <link rel="stylesheet" href="./css/jquery-ui.min.css">
+    <link rel="stylesheet" href="./css/index_m.css">
+</head>
+
+<body>
+<div id="placeholder">姓名,等級,地址<br>黃xx,一級,新北市樹林區中山路二段34號<br>陳xx,二級,新北市樹林區中山路二段128號</div>
+<div class="row">
+    <textarea id="data" cols="36"></textarea>
+    <button onclick="process('mobile')">處理</button>
+</div>
+<div id="icon" class="row">
+    <div style="background-image: url('./img/1.png')" class="icon" title="等級一"></div>
+    <div style="background-image: url('./img/2.png')" class="icon" title="等級二"></div>
+    <div style="background-image: url('./img/3.png')" class="icon" title="等級三"></div>
+    <div style="background-image: url('./img/4.png')" class="icon" title="等級四"></div>
+</div>
+<div id="progress" class="row"></div>
+<div id="checkBoxes" class="row"></div>
+<div id="errorData" class="row"></div>
+<div id="map" class="row"></div>
+
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAj4PdVqJ5dptTNojTHop1tUsird2yxZgg"></script>
+<script src="./js/jquery-2.1.1.min.js"></script>
+<script src="./js/jquery-ui.min.js"></script>
+<script src="./js/index.js"></script>
+</body>
+
+</html>
