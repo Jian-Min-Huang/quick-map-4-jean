@@ -1,7 +1,7 @@
-# 🗺 quick-map-4-jean  [![Build Status](https://travis-ci.org/Jian-Min-Huang/quick-map-4-jean.svg?branch=master)](https://travis-ci.org/Jian-Min-Huang/quick-map-4-jean) [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php) [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+# 🗺 quick-map-4-jean  ![Build Status](https://travis-ci.org/Jian-Min-Huang/quick-map-4-jean.svg?branch=master) ![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103) ![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)
 Quick Map for Jean's Business
 
-# Input Format (.csv), you can press enter button directly
+# Input Format (.csv)
 ```
 name1,level1,address1
 name2,level2,address2
