@@ -15,6 +15,27 @@ name3,level3,address3
 # Mobile Screen
 ![mobile](./build/img/mobile.jpg)
 
+# Requirements
+* [Node.js][nodejs-page]
+* [npm][npm-page] or [yarn][yarn-page]
+* [Gulp.js][gulpjs-page]
+
+# Project Structure
+```
+* build/                        build result
+* src/
+  * html/                       html files
+  * js/                         js files
+  * css                         css files
+* vendors                       3rd party libraries
+```
+
+# Build
+```sh
+$ npm install
+$ npm run build
+```
+
 # Result
 please visit [http://jean.jianminhuang.cc][result-page]
 

@@ -4,7 +4,6 @@ import gulp from "gulp";
 import fs from "fs";
 import fileinclude from "gulp-file-include";
 import concat from "gulp-concat";
-import babel from "gulp-babel";
 import uglify from "gulp-uglify";
 import rename from "gulp-rename";
 import minifyCSS from "gulp-csso";
