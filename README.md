@@ -1,4 +1,4 @@
-# 🗺 quick-map-4-jean  [![Build Status](https://travis-ci.org/Jian-Min-Huang/quick-map-4-jean.svg?branch=master)](https://travis-ci.org/Jian-Min-Huang/quick-map-4-jean)
+# 🗺 quick-map-4-jean  [![Build Status](https://travis-ci.org/Jian-Min-Huang/quick-map-4-jean.svg?branch=master)](https://travis-ci.org/Jian-Min-Huang/quick-map-4-jean) [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php) [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 Quick Map for Jean's Business
 
 # Input Format (.csv), you can press enter button directly
@@ -9,11 +9,11 @@ name3,level3,address3
 ...
 ```
 
-# Desktop Screen
+# Desktop Screen Shot
 ![desktop](./build/img/desktop.png)
 
-# Mobile Screen
-![mobile](./build/img/mobile.jpg)
+# Mobile Screen Shot
+![mobile](./build/img/mobile.png)
 
 # Requirements
 * [Node.js][nodejs-page]
@@ -49,6 +49,10 @@ Copyright (c) 2017 Jian-Min Huang
 
 [:arrow_up: back to top][top-page]
 
+[nodejs-page]: <https://nodejs.org>
+[npm-page]: <https://www.npmjs.com>
+[yarn-page]: <https://yarnpkg.com>
+[gulpjs-page]: <https://gulpjs.com>
 [result-page]: <http://jean.jianminhuang.cc>
 [license-page]: <https://github.com/Jian-Min-Huang/quick-map-4-jean/blob/master/LICENSE>
 [top-page]: <https://github.com/Jian-Min-Huang/quick-map-4-jean#quick-map-4-jean>
