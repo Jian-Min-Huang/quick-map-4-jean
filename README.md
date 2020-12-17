@@ -37,7 +37,7 @@ $ npm run build
 ```
 
 # Result
-please visit [http://jean.jianminhuang.cc][result-page]
+please visit [https://jian-min-huang.github.io/quick-map-4-jean/][result-page]
 
 # Author
 Jian-Min Huang
